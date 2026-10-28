@@ -75,11 +75,15 @@ linha_no_zprofile "export PATH=\"$FFMPEG_BIN:\$PATH\""
 linha_no_zprofile 'export PATH="$HOME/.local/bin:$PATH"'
 export PATH="$FFMPEG_BIN:$HOME/.local/bin:$PATH"
 
-passo "Ferramentas Python (yt-dlp, crv, mlx-whisper)"
+passo "Ferramentas Python (yt-dlp, crv, mlx-whisper, earshot)"
 # O Python do brew não aceita pip global, então cada ferramenta ganha seu ambiente pelo uv.
 uv tool install --upgrade --python 3.13 yt-dlp
 uv tool install --upgrade --python 3.13 "claude-real-video[mlx]"
 uv tool install --upgrade --python 3.13 mlx-whisper
+# earshot: o Claude "ouve" o áudio (sincronia de corte, trilha sob a voz). Python 3.12, testado assim.
+uv tool install --upgrade --python 3.12 "earshot @ git+https://github.com/Leonxlnx/earshot@v0.4.0"
+# Baixa os modelos (~1,1 GB). Sem HF_HUB_DISABLE_XET o download quebra com "File exists (os error 17)".
+HF_HUB_DISABLE_XET=1 earshot doctor --fetch >/dev/null || aviso "não consegui baixar os modelos do earshot; rode: HF_HUB_DISABLE_XET=1 earshot doctor --fetch"
 # Ambiente para scripts avulsos que o Claude escrever (imagem, números).
 [ -x "$BASE/venv/bin/python" ] || uv venv --quiet --python 3.13 "$BASE/venv"
 uv pip install --quiet --upgrade --python "$BASE/venv/bin/python" pillow numpy

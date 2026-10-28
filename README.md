@@ -40,6 +40,7 @@ Depois, feche e abra o Terminal (e o app do Claude) para tudo valer.
 | yt-dlp | Baixar vídeo de referência (YouTube, Instagram) |
 | crv (claude-real-video) | Deixa o Claude "assistir" um vídeo: tira quadros-chave e transcreve a fala |
 | mlx-whisper | Transcrição de fala rodando no próprio Mac |
+| earshot | Deixa o Claude "ouvir" o áudio: mostra se cada corte tem som junto e quanto a trilha desce sob a voz (baixa ~1,1 GB de modelos) |
 | Claude Code | O Claude que trabalha nos arquivos do seu computador |
 | Skill video-use | Edição conversada: você fala o que quer e ele corta e monta |
 | Skills do Remotion | Animação, letreiro e legenda feitos em código |
@@ -87,7 +88,7 @@ claude
 - "Assista esse vídeo de referência e me diga o que funciona nele: https://..."
 - "Ache 5 B-rolls de cozinha profissional para cobrir os cortes."
 
-Antes de entregar, peça a folha de frames e a medição de áudio. A skill edicao-anuncio já manda o Claude fazer isso.
+Antes de entregar, peça a folha de frames, a medição de áudio e a folha do earshot. A skill edicao-anuncio já manda o Claude fazer isso.
 
 ## Conferir e atualizar
 

@@ -19,9 +19,10 @@ filtros="$(ffmpeg -hide_banner -filters 2>/dev/null)"
 for f in drawtext subtitles loudnorm; do
   if grep -q " $f " <<<"$filtros"; then ok "ffmpeg com $f"; else falta "ffmpeg com $f (precisa do ffmpeg-full antes no PATH)"; fi
 done
-for c in ffprobe sox rclone node uv yt-dlp crv mlx_whisper claude; do
+for c in ffprobe sox rclone node uv yt-dlp crv mlx_whisper earshot claude; do
   checa "$c" "command -v $c"
 done
+checa "modelos do earshot (~1,1 GB)" 'test -d "$HOME/.cache/earshot/hf/models--laion--larger_clap_general" && test -d "$HOME/.cache/earshot/hf/models--MIT--ast-finetuned-audioset-10-10-0.4593"'
 checa "venv de scripts (pillow, numpy)" '"$HOME/.video-toolkit/venv/bin/python" -c "import PIL, numpy"'
 
 for s in video-use remotion-best-practices remotion-captions get-brolls claude-real-video edicao-anuncio; do

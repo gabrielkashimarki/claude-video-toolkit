@@ -12,10 +12,11 @@ description: Regras para editar anúncio em vídeo vertical para Meta (Reels, St
 - Texto e legenda ficam entre 55% e 65% da altura (y de 1056 a 1248 px). A faixa de baixo, cerca de 35% da tela, é coberta pela interface do Reels; nada importante ali.
 - Legenda uma palavra por vez, centralizada, fonte grossa, contorno ou sombra para ler em qualquer fundo.
 - Áudio a -14 LUFS integrado, pico -1 dBTP, com loudnorm em duas passadas.
+- Trilha desce de 3 a 6 dB enquanto alguém fala (ducking). Menos que isso, a voz embola no celular e a transcrição erra palavra.
 - Algum estímulo visual novo a cada 2,5 s no máximo (corte, zoom, B-roll, texto, mudança de enquadramento).
 - Cartão final de 2 a 3 s com a ação escrita (ex.: "Chame no WhatsApp").
 - Sempre entregar também uma versão curta de 15 a 25 s: gancho, dor, CTA.
-- Antes de entregar: folha de frames + medição de loudness. Não entregue sem olhar as duas.
+- Antes de entregar: folha de frames, medição de loudness e folha do earshot. Não entregue sem olhar as três.
 
 ## Legenda no lugar certo (ASS)
 
@@ -65,3 +66,16 @@ ffmpeg -hide_banner -y -i saida.mp4 -frames:v 1 \
 ```
 
 Abra `folha.png` e confira: gancho com rosto e texto no topo, legenda na faixa de 55% a 65%, nada importante na faixa de baixo, troca visual a cada 2,5 s, cartão final legível.
+
+## Ouvir o áudio (earshot)
+
+```bash
+earshot timeline saida.mp4 > timeline.txt   # cortes, efeitos, voz e queda da trilha, em texto
+earshot sheet saida.mp4 -o earshot.png      # a mesma coisa numa imagem anotada
+```
+
+Confira no `timeline.txt`:
+- Quanto a trilha desce sob a voz. Se ficar abaixo de 3 dB, baixe mais a trilha nos trechos com fala.
+- Cortes sem som junto. Num anúncio é normal ter efeito só no gancho, na virada e no CTA; não encha todo corte de efeito.
+
+O `earshot critique` compara com filmes de lançamento de produto, não com anúncio de Reels. Não vale o tempo.
